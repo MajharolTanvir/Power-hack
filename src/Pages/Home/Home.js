@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from './Modal/Modal';
 import Table from './Table/Table';
 
 const Home = () => {
+    let [isOpen, setIsOpen] = useState(false)
+
+    function closeModal() {
+        setIsOpen(false)
+    }
+
+    function openModal() {
+        setIsOpen(true)
+    }
     return (
         <div className='container mx-auto my-10 bg-gray-300 p-5'>
             <div className='md:flex items-center justify-between border-b-2'>
@@ -12,7 +22,14 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="flex space-x-2 justify-center">
-                    <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Add New Bill</button>
+                    <div className="">
+                        <button type="button" onClick={openModal} className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"> Open dialog
+                        </button>
+                        {isOpen && <Modal
+                            closeModal={closeModal}
+                            isOpen={isOpen}
+                        ></Modal>}
+                    </div>
                 </div>
             </div>
             <Table></Table>

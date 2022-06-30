@@ -26,7 +26,6 @@ const Registration = () => {
 
     const { handleSubmit } = formik;
 
-
     return (
         <section className="h-screen">
             <div className="container px-6 py-12 h-full">
