@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from "yup";
+import { toast } from 'react-toastify';
 
 
 const validate = Yup.object({
@@ -20,7 +21,26 @@ const Registration = () => {
         },
         validationSchema: validate,
         onSubmit: async (values) => {
-            console.log(values);
+            const register = {
+                name: values.name,
+                email: values.email,
+                password: values.phone,
+            }
+
+            fetch('http://localhost:5000/registration', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(register)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        toast.success("Your are registration successfully")
+                    }
+                })
         },
     })
 

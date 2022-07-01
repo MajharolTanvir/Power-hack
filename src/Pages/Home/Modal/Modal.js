@@ -29,6 +29,7 @@ const Modal = ({ isOpen, closeModal, refetch }) => {
                 phone: values.phone,
                 amount: values.amount,
             }
+            closeModal()
 
             fetch('http://localhost:5000/add-billing', {
                 method: "POST",

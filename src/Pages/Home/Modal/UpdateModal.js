@@ -29,6 +29,7 @@ const UpdateModal = ({ isOpen, closeModal, id, refetch }) => {
                 phone: values.phone,
                 amount: values.amount,
             }
+            closeModal()
 
             fetch(`http://localhost:5000/update-billing/${id}`, {
                 method: "PUT",
