@@ -13,7 +13,7 @@ const validate = Yup.object({
 
 })
 
-const Modal = ({ isOpen, closeModal }) => {
+const Modal = ({ isOpen, closeModal, refetch }) => {
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -30,7 +30,7 @@ const Modal = ({ isOpen, closeModal }) => {
                 amount: values.amount,
             }
 
-            fetch('http://localhost:5000/bills', {
+            fetch('http://localhost:5000/add-billing', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -42,6 +42,7 @@ const Modal = ({ isOpen, closeModal }) => {
                     console.log(data);
                     if (data.insertedId) {
                         toast.success("Your bill added successfully")
+                        refetch()
                     }
                 })
 

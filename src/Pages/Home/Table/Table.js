@@ -1,15 +1,31 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import Loading from '../../../Shared/Loading';
+import { toast } from 'react-toastify';
 
-const Table = () => {
 
-    const { data: bills, isLoading, refetch } = useQuery('bills', () => fetch('http://localhost:5000/bills').then(res => res.json()))
+const Table = ({ bills, refetch }) => {
 
-    if (isLoading) {
-        return <Loading></Loading>
+
+    const handleUpdate = id => {
+
     }
-    console.log(bills);
+
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/delete-billing/${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deletedCount) {
+                    toast.success("Your date delete has been successfully completed")
+                    refetch()
+                }
+            })
+
+    }
 
     return (
         <div className="flex flex-col">
@@ -58,8 +74,9 @@ const Table = () => {
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <div class="flex spac-x-2 justify-center">
                                                 <div>
-                                                    <button type="button" class="inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mr-1">Edit</button>
-                                                    <button type="button" class="inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
+                                                    <button onClick={() => handleUpdate(bill._id)} type="button" class="inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mr-1">Edit</button>
+
+                                                    <button onClick={() => handleDelete(bill._id)} type="button" class="inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
                                                 </div>
                                             </div>
                                         </td>

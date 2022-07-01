@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import Modal from './Modal/Modal';
 import Table from './Table/Table';
+import { useQuery } from 'react-query';
+import Loading from '../../Shared/Loading';
 
 const Home = () => {
     let [isOpen, setIsOpen] = useState(false)
+
+    const { data: bills, isLoading, refetch } = useQuery('bills', () => fetch('http://localhost:5000/billing-list').then(res => res.json()))
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     function closeModal() {
         setIsOpen(false)
@@ -23,16 +31,21 @@ const Home = () => {
                 </div>
                 <div className="flex space-x-2 justify-center">
                     <div className="">
-                        <button type="button" onClick={openModal} className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"> Open dialog
+                        <button type="button" onClick={openModal} className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"> Add New Bill
                         </button>
                         {isOpen && <Modal
                             closeModal={closeModal}
                             isOpen={isOpen}
+                            refetch={refetch}
                         ></Modal>}
                     </div>
                 </div>
             </div>
-            <Table></Table>
+            <Table
+                bills={bills}
+                isLoading={isLoading}
+                refetch={refetch}
+            ></Table>
         </div>
     );
 };
