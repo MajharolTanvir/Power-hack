@@ -3,11 +3,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from "yup";
+import { toast } from 'react-toastify';
 
 const validate = Yup.object({
     name: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
-    phone: Yup.string().min(11).max(11).required("Required"),
+    phone: Yup.string().min(10).max(10).required("Required"),
     amount: Yup.number().required("Required"),
 
 })
@@ -19,11 +20,32 @@ const Modal = ({ isOpen, closeModal }) => {
             email: "",
             phone: "",
             amount: ""
-
         },
         validationSchema: validate,
         onSubmit: async (values) => {
-            console.log(values);
+            const bill = {
+                name: values.name,
+                email: values.email,
+                phone: values.phone,
+                amount: values.amount,
+            }
+
+            fetch('http://localhost:5000/bills', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(bill)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        toast.success("Your bill added successfully")
+                    }
+                })
+
+
         },
     })
 

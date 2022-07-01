@@ -22,9 +22,9 @@ const Navbar = () => {
                             <a className="nav-link text-white hover:opacity-80 focus:opacity-80 p-0" href="/login">Login</a>
                         </li>
                     </ul>
-                    <div className="">
-                        <p>Paid Amount: 0</p>
-                    </div>
+                </div>
+                <div className="">
+                    <p>Paid Amount: 0</p>
                 </div>
             </div>
         </nav>
