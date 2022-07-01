@@ -15,7 +15,7 @@ const Table = ({ userInput, bills, refetch }) => {
     }
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/delete-billing/${id}`, {
+        fetch(`https://power-pump.herokuapp.com/delete-billing/${id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json"

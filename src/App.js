@@ -10,7 +10,7 @@ import { useQuery } from 'react-query';
 import Loading from './Shared/Loading';
 
 function App() {
-  const { data: bills, isLoading, refetch } = useQuery('bills', () => fetch('http://localhost:5000/billing-list').then(res => res.json()))
+  const { data: bills, isLoading, refetch } = useQuery('bills', () => fetch('https://power-pump.herokuapp.com/billing-list').then(res => res.json()))
 
   if (isLoading) {
     return <Loading></Loading>

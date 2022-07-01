@@ -17,7 +17,7 @@ const validate = Yup.object({
 const Login = () => {
     const navigate = useNavigate()
 
-    const { data: registers, isLoading, refetch } = useQuery('register', () => fetch('http://localhost:5000/registration').then(res => res.json()))
+    const { data: registers, isLoading, refetch } = useQuery('register', () => fetch('https://power-pump.herokuapp.com/registration').then(res => res.json()))
 
     console.log(registers);
 

@@ -27,7 +27,7 @@ const Registration = () => {
                 password: values.phone,
             }
 
-            fetch('http://localhost:5000/registration', {
+            fetch('https://power-pump.herokuapp.com/registration', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

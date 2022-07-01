@@ -31,7 +31,7 @@ const Modal = ({ isOpen, closeModal, refetch }) => {
             }
             closeModal()
 
-            fetch('http://localhost:5000/add-billing', {
+            fetch('https://power-pump.herokuapp.com/add-billing', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

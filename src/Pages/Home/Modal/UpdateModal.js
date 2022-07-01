@@ -31,7 +31,7 @@ const UpdateModal = ({ isOpen, closeModal, id, refetch }) => {
             }
             closeModal()
 
-            fetch(`http://localhost:5000/update-billing/${id}`, {
+            fetch(`https://power-pump.herokuapp.com/update-billing/${id}`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json"
