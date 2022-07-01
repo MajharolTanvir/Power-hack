@@ -4,10 +4,7 @@ import Table from './Table/Table';
 
 const Home = ({ bills, isLoading, refetch }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [userInput, setUserInput] = useState(bills)
-
-    console.log(userInput);
-
+    const [userInput, setUserInput] = useState("")
 
     function closeModal() {
         setIsOpen(false)
